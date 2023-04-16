@@ -1,7 +1,3 @@
-var firstJSXFunction = function() {
-  alert("Hello world from hostscript.jsx");
-}
-
 function evalFile(path) {
   try {
     $.evalFile(path);

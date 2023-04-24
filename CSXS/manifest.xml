@@ -3,8 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<ExtensionList>
-    <Extension Id="com.example.myDev.imageList" Version="1.0" />
-    <Extension Id="com.example.myDev.imageView" Version="1.0" />
+		<Extension Id="com.example.myDev.imageList" Version="1.0" />
+		<Extension Id="com.example.myDev.imageView" Version="1.0" />
 	</ExtensionList>
 
 	<ExecutionEnvironment>
@@ -24,7 +24,7 @@
 	</ExecutionEnvironment>
 
 	<DispatchInfoList>
-    <Extension Id="com.example.myDev.imageList">
+		<Extension Id="com.example.myDev.imageList">
 			<DispatchInfo >
 				<Resources>
 					<MainPath>./imageList/index.html</MainPath>
@@ -38,7 +38,7 @@
 					<Menu>Image List</Menu>
 					<Geometry>
 						<Size>
-							<Height>400</Height>
+							<Height>600</Height>
 							<Width>300</Width>
 						</Size>
 					</Geometry>

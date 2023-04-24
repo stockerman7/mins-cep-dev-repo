@@ -2,22 +2,44 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-    <link rel="stylesheet" href="css/topcoat-desktop-dark.min.css" />
-    <link rel="stylesheet" href="css/viewer.min.css">
-    <link id="hostStyle" rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="css/topcoat-desktop-dark.min.css" />
+		<link rel="stylesheet" href="css/viewer.min.css" />
+		<link id="hostStyle" rel="stylesheet" href="css/styles.css" />
 		<title>Image List Panel</title>
 	</head>
-	
+
 	<body class="hostElt">
 		<div id="imageListContent">
-			<!-- 이미지 리스트 내용 -->
+			<!-- 폴더, 파일 블러오기 버튼 -->
+			<div class="topcoat-button-bar">
+				<div class="topcoat-button-bar__item">
+					<button id="btnSelectFolder" class="topcoat-button-bar__button">Select Folder</button>
+				</div>
+				<div class="topcoat-button-bar__item">
+					<button id="btnSelectFile" class="topcoat-button-bar__button">Select File</button>
+				</div>
+				<!-- 추가 버튼들 -->
+				<div class="topcoat-button-bar__item">
+					<button id="load-folder" class="topcoat-button-bar__button">Load Folder</button>
+				</div>
+				<div class="topcoat-button-bar__item">
+					<button id="load-file" class="topcoat-button-bar__button">Load File</button>
+				</div>
+				<div class="topcoat-button-bar__item">
+					<button id="sort" class="topcoat-button-bar__button">Sort</button>
+				</div>
+				<div class="topcoat-button-bar__item">
+					<button id="filter" class="topcoat-button-bar__button">Filter</button>
+				</div>
+			</div>
+			<ul id="imageList"></ul>
 		</div>
-		
-    <script src="../js/CSInterface.js"></script>
-    <script src="../js/jquery-3.6.4.min.js"></script>
-    <script src="../js/viewer.min.js"></script>
-    
-    <script src="js/themeManager.js"></script>
+
+		<script src="../js/CSInterface.js"></script>
+		<script src="../js/jquery-3.6.4.min.js"></script>
+		<script src="../js/viewer.min.js"></script>
+
+		<script src="js/themeManager.js"></script>
 		<script src="js/imageList.js"></script>
 	</body>
 </html>

@@ -1,51 +1,78 @@
 /*Your styles*/
 
- body {
-    margin: 10px;
+body {
+	margin: 10px;
 }
-
 
 #content {
-    margin-right:auto;
-    margin-left:auto;
-    vertical-align:middle;
-    width:100%;
+	margin-right: auto;
+	margin-left: auto;
+	vertical-align: middle;
+	width: 100%;
 }
-
 
 button {
-    width: 100%;
+	width: 100%;
 }
-
-
-
 
 /*
 Those classes will be edited at runtime with values specified
 by the settings of the CC application
 */
-.hostFontColor{}
-.hostFontFamily{}
-.hostFontSize{}
+.hostFontColor {
+}
+.hostFontFamily {
+}
+.hostFontSize {
+}
 
 /*font family, color and size*/
-.hostFont{}
+.hostFont {
+}
 /*background color*/
-.hostBgd{}
+.hostBgd {
+}
 /*lighter background color*/
-.hostBgdLight{}
+.hostBgdLight {
+}
 /*darker background color*/
-.hostBgdDark{}
+.hostBgdDark {
+}
 /*background color and font*/
-.hostElt{}
+.hostElt {
+}
 
+.hostButton {
+	border: 1px solid;
+	border-radius: 2px;
+	height: 20px;
+	vertical-align: bottom;
+	font-family: inherit;
+	color: inherit;
+	font-size: inherit;
+}
 
-.hostButton{
-    border:1px solid;
-    border-radius:2px;
-    height:20px;
-    vertical-align:bottom;
-    font-family:inherit;
-    color:inherit;
-    font-size:inherit;
+body {
+	font-size: 12px;
+	overflow: auto;
+}
+
+.menu {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.image-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.image-list .folder {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.image-list .file {
+	padding-left: 20px;
 }

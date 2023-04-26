@@ -10,19 +10,37 @@
 		// 이벤트 리스너 등록 및 기타 초기화 코드를 여기에 추가할 수 있다.
 	}
 
-	// 폴더 불러오기 기능
 	$("#load-folder").click(function () {
 		// ExtendScript에서 폴더를 선택하도록 호출
 		csInterface.evalScript("selectFolder()", function (folderPath) {
 			if (folderPath !== "null") {
-				// 폴더에서 이미지를 가져온 후 리스트를 업데이트
-				csInterface.evalScript(
-					`getImagesInFolder("${folderPath}")`,
-					function (imagesJson) {
-						const images = JSON.parse(imagesJson);
-						updateImageList(images);
-					},
-				);
+				const folderName = folderPath.split("/").pop();
+				const $imageList = $("#imageList");
+				const $li = $("<li>").addClass("folder").text(folderName);
+				const $subList = $("<ul>").css("display", "none");
+				$li.append($subList);
+				$li.click(function () {
+					// 폴더의 접기/펼치기 기능 구현
+					if ($subList.children().length) {
+						$subList.slideToggle();
+					} else {
+						csInterface.evalScript(
+							'getImagesInFolder("' + folderPath + '")',
+							function (imagesJson) {
+								const images = JSON.parse(imagesJson);
+								images.forEach((image) => {
+									if (image.type === "file") {
+										// 폴더 내의 파일만 추가
+										const $subLi = $("<li>").addClass("file").text(image.name);
+										$subList.append($subLi);
+									}
+								});
+								$subList.slideDown();
+							},
+						);
+					}
+				});
+				$imageList.append($li);
 			}
 		});
 	});
@@ -31,9 +49,10 @@
 	$("#load-file").click(function () {
 		// ExtendScript에서 파일을 선택하도록 호출
 		csInterface.evalScript("selectFile()", function (filePath) {
+			// console.log("File path from ExtendScript:", filePath);
 			if (filePath !== "null") {
 				// 이미지 리스트에 선택한 파일을 추가
-				updateImageList([{ path: filePath, name: filePath.split("/").pop() }]);
+				updateImageList([{ type: "file", path: filePath, name: filePath.split("/").pop() }]);
 			}
 		});
 	});
@@ -75,41 +94,53 @@
 	});
 
 	// 이미지 목록을 업데이트하는 함수
-	function updateImageList(images) {
+	function updateImageList(images, folderPath = "") {
 		const $imageList = $("#imageList");
-		$imageList.empty();
+		console.log("파일 정보 객체", images);
+		// folderPath가 있는 경우에는 폴더를 추가하고 해당 폴더를 클릭하면 하위 이미지를 표시
+		if (folderPath) {
+			const folderName = folderPath.split("/").pop(); // 폴더 이름 추출
+			// 선택한 폴더 추가
+			const $folder = $("<li>").addClass("folder").text(folderName);
+			const $subList = $("<ul>").css("display", "none");
+			$folder.append($subList);
 
-		images.forEach((image) => {
-			const $li = $("<li>").text(image.name);
-
-			if (image.type === "folder") {
-				$li.addClass("folder");
-				$li.click(function () {
-					// 폴더의 접기/펼치기 기능 구현
-					const $subList = $li.next("ul");
-					if ($subList.length) {
-						$subList.slideToggle();
-					} else {
-						csInterface.evalScript(
-							`getImagesInFolder("${image.path}")`,
-							function (imagesJson) {
-								const subImages = JSON.parse(imagesJson);
-								const $subList = $("<ul>").css("display", "none");
-								subImages.forEach((subImage) => {
+			// 폴더 클릭 이벤트 핸들러
+			$folder.click(function () {
+				// 폴더의 접기/펼치기 기능 구현
+				if ($subList.children().length) {
+					$subList.slideToggle();
+				} else {
+					// 폴더 내의 이미지 정보를 가져와서 목록에 추가
+					csInterface.evalScript(
+						'getImagesInFolder("' + folderPath + '")',
+						function (imagesJson) {
+							const subImages = JSON.parse(imagesJson);
+							subImages.forEach((subImage) => {
+								if (subImage.type === "file") {
+									// 폴더 내의 파일만 추가
 									const $subLi = $("<li>").addClass("file").text(subImage.name);
 									$subList.append($subLi);
-								});
-								$li.after($subList);
-								$subList.slideDown();
-							},
-						);
-					}
-				});
-			} else {
-				$li.addClass("file");
-			}
-			$imageList.append($li);
-		});
+								}
+							});
+							$subList.slideDown(); // 하위 목록 표시
+						},
+					);
+				}
+			});
+			$imageList.append($folder); // 폴더를 이미지 목록에 추가
+		} else {
+			// folderPath가 없는 경우 (단일 파일 추가)
+			images.forEach((image) => {
+				console.log("이미지 타입 확인 : ", image.type);
+				if (image.type === "file") {
+					// 파일인 경우만 추가
+					const $li = $("<li>").addClass("file").text(image.name);
+					$imageList.append($li); // 이미지 목록에 파일 추가
+				  console.log("이미지 리스트 목록 : ", $imageList);
+				}
+			});
+		}
 	}
 
 	// init 함수를 호출하여 패널 초기화를 시작합니다.

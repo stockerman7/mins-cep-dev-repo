@@ -10,29 +10,21 @@
 
 	<body class="hostElt">
 		<div id="imageListContent">
-			<!-- 폴더, 파일 블러오기 버튼 -->
-			<div class="topcoat-button-bar">
+				<!-- 폴더, 파일 블러오기 버튼 -->
 				<div class="topcoat-button-bar__item">
-					<button id="btnSelectFolder" class="topcoat-button-bar__button">Select Folder</button>
+					<button id="load-folder" class="topcoat-button-bar__button">폴더</button>
 				</div>
 				<div class="topcoat-button-bar__item">
-					<button id="btnSelectFile" class="topcoat-button-bar__button">Select File</button>
-				</div>
-				<!-- 추가 버튼들 -->
-				<div class="topcoat-button-bar__item">
-					<button id="load-folder" class="topcoat-button-bar__button">Load Folder</button>
+					<button id="load-file" class="topcoat-button-bar__button">파일</button>
 				</div>
 				<div class="topcoat-button-bar__item">
-					<button id="load-file" class="topcoat-button-bar__button">Load File</button>
+					<button id="sort" class="topcoat-button-bar__button">정렬</button>
 				</div>
 				<div class="topcoat-button-bar__item">
-					<button id="sort" class="topcoat-button-bar__button">Sort</button>
-				</div>
-				<div class="topcoat-button-bar__item">
-					<button id="filter" class="topcoat-button-bar__button">Filter</button>
+					<button id="filter" class="topcoat-button-bar__button">필터</button>
 				</div>
 			</div>
-			<ul id="imageList"></ul>
+			<ul id="imageList" class="image-list"></ul>
 		</div>
 
 		<script src="../js/CSInterface.js"></script>
